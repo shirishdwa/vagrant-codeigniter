@@ -1,54 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Tweet page</title>
+	<script src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("jquery", "1.3.2");
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var num_tweets = <?=$num_tweets?>;
+            var loaded_tweets = 0;
+            $("#more_button").click(function(){
+                loaded_tweets += 10;
+                $.get("/tweet/get_tweets/" + loaded_tweets, function(data){
+	               $("#main_content").append(data);
+                });
+                if(loaded_tweets + 10 >= num_tweets - 10)
+                {
+	               $("#more_button").hide();
+                   //alert('hide');
+                }
+            })
+    	})
+    </script>
 </head>
 <body>
+    <div id="main_content">    
 	<?php
-	
-	   echo "<p>Tweets</p>";
-	   
-       form_open();
-       
-       echo "<p>";
-       $data = array(
-              'name'        => 'tweet',
-              'id'          => 'tweet',
-              'value'       => 'Write something',
-              'maxlength'   => '140',
-              'size'        => '50',
-              'style'       => 'width:30%',
-            );
-	   echo form_input($data);
-	   echo "</p>";
-       	
-   	   echo "<p>";
-	   echo form_submit('login_submit','Tweet');
-	   echo "</p>";
-       
-       form_close();
-       
-       $this->db->where('user_info_id','info_id');
-            
-       $query = $this->db->get('tweets');
-       $num_tweets = $query->num_rows;
-       if($num_tweets == 0)
-       {
-           echo "<p>No tweets to display</p>";
-       }
-       else
-       {
-           for ($i=0;$i<$num_tweets;$i++)
-           {
-               //Display tweets 
-           }
-       }
-        
+        if($num_tweets == 0)
+            echo "<p>No tweets to display</p>";
+        else
+            $this->load->view('get_tweets');
     ?>
+    </div>
     
-    <a href='<?php echo base_url()."main/logout" ?>'>Logout</a> 
-	
-
-
+    <div id="more_button">
+        Show more
+    </div>
 </body>
 </html>
