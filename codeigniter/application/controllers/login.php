@@ -6,7 +6,7 @@ class Login extends CI_Controller
     {
         $this->load->model('model_users');        
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('mail_address','Mail_address','required|trim|xcc_clean|callback_validate_email');	
+        $this->form_validation->set_rules('mail_address','Mail address','required|trim|xcc_clean|callback_validate_email');	
         $this->form_validation->set_rules('password','Password','required|md5|trim');
         $this->form_validation->set_message('validate_email','Incorrect email address or password');
         if ($this->form_validation->run()) {
@@ -18,9 +18,7 @@ class Login extends CI_Controller
             );
             $this->session->set_userdata($data);
             redirect('tweet/tweet_pagination');
-        }
-        else
-        {
+        } else {
             $this->load->view('login_page'); 
         }
     }
@@ -30,9 +28,10 @@ class Login extends CI_Controller
         $this->load->model('model_users');
         $mailad = $this->input->post('mail_address');
         $pwd = $this->input->post('password');
-        if ($this->model_users->can_log_in($mailad, $pwd))
+        if ($this->model_users->can_log_in($mailad, $pwd)) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 }

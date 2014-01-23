@@ -8,9 +8,9 @@
     <?php
         echo form_open('signup/signup_validation');
         echo validation_errors();
-    	echo "<p>Name: ".form_input('user_name', $this->input->post('user_name'))."</p>";
+    	echo "<p>Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".form_input('user_name', $this->input->post('user_name'))."</p>";
     	echo "<p>Mail address: ".form_input('mail_address', $this->input->post('mail_address'))."</p>";
-    	echo "<p>Password: ".form_password('password')."</p>";
+    	echo "<p>Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".form_password('password')."</p>";
     	echo "<p>".form_submit('sign_up_submit','Sign up')."</p>";
         echo form_close();
 	?>
