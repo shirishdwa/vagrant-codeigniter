@@ -3,9 +3,17 @@
 class Tweet extends CI_Controller
 {
     const page_limit = 10;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('model_tweets');
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<p class="error_msg">', '</p>');
+    }
+
     public function tweet_pagination($type = NULL)
     {
-        $this->load->model('model_tweets');
         $id = $this->session->userdata('user_id');
         $data['num_tweets'] = $this->model_tweets->num_tweets($id);
         $data['latest_tweets'] = $this->model_tweets->get_tweets(0, self::page_limit);
@@ -16,8 +24,7 @@ class Tweet extends CI_Controller
     public function tweet_validation() {
         log_message('error','1');
         $this->load->library('form_validation');
-        $this->load->model('model_tweets');
-        
+
         $this->form_validation->set_rules('tweet', 'Tweet', 'required|trim|max_length[140]');
         if ($this->form_validation->run()) {
             $tweet_data = array(
@@ -42,14 +49,12 @@ class Tweet extends CI_Controller
     
     public function get_tweets($offset)
     {
-        $this->load->model('model_tweets');
         $data['latest_tweets'] = $this->model_tweets->get_tweets($offset, self::page_limit);
         $this->load->view('get_tweets', $data);
     }
     
     public function get_latest_tweet()
     {
-        $this->load->model('model_tweets');
         $data['latest_tweets'] = $this->model_tweets->get_latest_tweet();
         $this->load->view('get_tweets', $data);
     }

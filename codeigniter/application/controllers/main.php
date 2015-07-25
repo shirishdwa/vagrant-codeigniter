@@ -6,14 +6,15 @@ class Main extends CI_Controller
     {
         $this->load->view('login_page');
     }
-	
+
     public function sign_up()
     {
-	   $this->load->view('sign_up_page');
+        $this->load->view('sign_up_page');
     }
 
     public function logout()
     {
+        //Destroy the ongoing session data and redirect to login page
         $this->session->sess_destroy();
         redirect('main/index');
     }

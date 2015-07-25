@@ -5,14 +5,27 @@
 </head>
 <body>
 	<h1>Sign up</h1>
-    <?php
-        echo form_open('signup/signup_validation');
-        echo validation_errors();
-    	echo "<p>Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".form_input('user_name', $this->input->post('user_name'))."</p>";
-    	echo "<p>Mail address: ".form_input('mail_address', $this->input->post('mail_address'))."</p>";
-    	echo "<p>Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".form_password('password')."</p>";
-    	echo "<p>".form_submit('sign_up_submit','Sign up')."</p>";
-        echo form_close();
-	?>
+    <?= form_open('signup/signup_validation') ?>
+    <?= validation_errors() ?>
+    <table>
+      <tr>
+        <td>Name</td>
+        <td><?= form_input('user_name', $this->input->post('user_name')) ?></td>
+      </tr>
+      <tr>
+        <td>Mail address</td>
+        <td><?= form_input('mail_address', $this->input->post('mail_address')) ?></td>
+      </tr>
+      <tr>
+        <td>Password</td>
+        <td><?= form_password('password') ?></td>
+      </tr>
+      <tr>
+        <td>Re-enter Password</td>
+        <td><?= form_password('password_confirm') ?></td>
+      </tr>
+    </table>
+    <?= form_submit('sign_up_submit','Sign up') ?>
+    <?= form_close() ?>
 </body>
 </html>

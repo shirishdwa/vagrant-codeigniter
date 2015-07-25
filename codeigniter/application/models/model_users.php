@@ -1,11 +1,10 @@
-<?php 
-    
+<?php
     class Model_users extends CI_Model
     {
-        public function can_log_in($mailad, $password)
+        public function can_log_in($mail_address, $password)
         {
             global $loggedin_user;
-            $this->db->where('mail_address', $mailad);
+            $this->db->where('mail_address', $mail_address);
             $this->db->where('password', md5($password));
             $query = $this->db->get('user_info');
             if ($query->num_rows == 1) {
@@ -20,15 +19,15 @@
                 return false;
             }
         }
-        
+
         public function loggedin_user()
         {
             return $this->loggedin_user;
         }
-        
-        public function add_user($data)
+
+        public function add_user($user_data)
         {
-            $query = $this->db->insert('user_info', $data);
+            $query = $this->db->insert('user_info', $user_data);
             if ($query) {
                 return true;
             } else {
